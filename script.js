@@ -55,24 +55,40 @@ class TwitterVideoDownloader {
         this.isDownloading = true;
         this.downloadBtn.disabled = true;
         this.showProgress();
-        this.updateProgress(10, 'Video analiz ediliyor...');
+        this.updateProgress(10, 'Video indiriliyor...');
 
         try {
-            const videoInfo = await this.extractVideoInfo(url);
-            this.updateProgress(30, 'Video bilgileri alındı');
+            // Yeni backend: Tek adımda video indir
+            const response = await fetch('/download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url })
+            });
 
-            const downloadUrl = await this.getDownloadUrl(videoInfo);
-            this.updateProgress(60, 'İndirme linki hazırlandı');
+            if (!response.ok) {
+                throw new Error('Video indirilemedi!');
+            }
 
-            await this.downloadVideo(downloadUrl);
+            this.updateProgress(60, 'Video indiriliyor...');
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = `twitter_video_${Date.now()}.mp4`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(downloadUrl);
+
             this.updateProgress(100, 'İndirme tamamlandı!');
-
             setTimeout(() => {
                 this.hideProgress();
                 this.showStatus('Video başarıyla indirildi! Galerinizde bulabilirsiniz.', 'success');
                 this.resetForm();
             }, 1000);
-
         } catch (error) {
             console.error('İndirme hatası:', error);
             this.hideProgress();
@@ -83,50 +99,7 @@ class TwitterVideoDownloader {
         }
     }
 
-    async extractVideoInfo(url) {
-        this.updateProgress(20, 'Video bilgileri çıkarılıyor...');
-        
-        try {
-            const response = await fetch('/api/extract-video', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ url })
-            });
-
-            if (!response.ok) {
-                throw new Error('Video bilgileri alınamadı');
-            }
-
-            return await response.json();
-        } catch (error) {
-            throw new Error('Video analiz edilemedi: ' + error.message);
-        }
-    }
-
-    async getDownloadUrl(videoInfo) {
-        this.updateProgress(40, 'İndirme linki oluşturuluyor...');
-        
-        try {
-            const response = await fetch('/api/get-download-url', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(videoInfo)
-            });
-
-            if (!response.ok) {
-                throw new Error('İndirme linki oluşturulamadı');
-            }
-
-            const data = await response.json();
-            return data.downloadUrl;
-        } catch (error) {
-            throw new Error('İndirme linki alınamadı: ' + error.message);
-        }
-    }
+    // extractVideoInfo ve getDownloadUrl fonksiyonlarını tamamen kaldırıyorum
 
     async downloadVideo(downloadUrl) {
         this.updateProgress(70, 'Video indiriliyor...');
