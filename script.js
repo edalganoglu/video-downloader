@@ -59,7 +59,7 @@ class TwitterVideoDownloader {
 
         try {
             // Yeni backend: Tek adımda video indir
-            const response = await fetch('/download', {
+            const response = await fetch('https://video-downloader-b30n.onrender.com/download', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
