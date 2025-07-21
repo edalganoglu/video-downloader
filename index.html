@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Video İndirici</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1da1f2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Twitter Video">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fab fa-twitter"></i>
+                <h1>Twitter Video İndirici</h1>
+            </div>
+            <p class="subtitle">Twitter videolarını kolayca indirin ve galerinize kaydedin</p>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section">
+                <div class="url-input-container">
+                    <input type="url" id="twitterUrl" placeholder="Twitter video URL'sini buraya yapıştırın..." class="url-input">
+                    <button id="downloadBtn" class="download-btn">
+                        <i class="fas fa-download"></i>
+                        <span>Video İndir</span>
+                    </button>
+                </div>
+                <div class="example-url">
+                    <p>Örnek: https://twitter.com/kullanici/status/123456789</p>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <div id="status" class="status hidden"></div>
+                <div id="progress" class="progress hidden">
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <span class="progress-text">İndiriliyor...</span>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobil Uyumlu</h3>
+                    <p>Samsung S25 ve diğer cihazlarda galeriye direkt kaydetme</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Hızlı İndirme</h3>
+                    <p>Yüksek kaliteli videoları saniyeler içinde indirin</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Güvenli</h3>
+                    <p>Kişisel verileriniz güvende, reklam yok</p>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h2>Nasıl Kullanılır?</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <p>Twitter'da paylaşmak istediğiniz videoyu bulun</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <p>Video URL'sini kopyalayın</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <p>URL'yi yukarıdaki kutuya yapıştırın</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <p>İndir butonuna tıklayın ve videoyu galerinize kaydedin</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Twitter Video İndirici. Tüm hakları saklıdır.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
